@@ -1,0 +1,40 @@
+{
+  "person": [
+    {
+      "name": "Jovan",
+      "surname": "Jovanovic",
+      "id": 165978,
+      "createdDate": "16-3-2023",
+      "userType": "user",
+      "city": "Novi Sad",
+      "adress": "Jovana Jovanovica 12"
+    },
+    {
+      "name": "Rados",
+      "surname": "Radosevic",
+      "id": 580153,
+      "createdDate": "16-3-2023",
+      "userType": "user",
+      "city": "Beograd",
+      "adress": "Radosa Radosevica 17"
+    },
+    {
+      "name": "Djordje",
+      "surname": "Djordjevic",
+      "id": 843217,
+      "createdDate": "16-3-2023",
+      "userType": "guest",
+      "city": "Beograd",
+      "adress": "Djordja Djordjevica 18"
+    },
+    {
+      "name": "Milos",
+      "surname": "Milosevic",
+      "id": 397266,
+      "createdDate": "16-3-2023",
+      "userType": "admin",
+      "city": "Kraljevo",
+      "adress": "Milosa Milosevica 36"
+    }
+  ]
+}
