@@ -126,7 +126,6 @@ const FilterUsersComponents = ({
           <PrimaryButton
             onClick={onSearchButtonClick}
             style={{ marginLeft: 10, marginTop: 29 }}
-            // disabled={!insertedName && !userType}
           >
             Search
           </PrimaryButton>
@@ -139,9 +138,7 @@ const FilterUsersComponents = ({
           </DefaultButton>
         </Stack>
         <h4 style={{ textAlign: "center" }}>
-          {!selectedOption && !insertedName
-            ? "Please select search criteria."
-            : "Press search button to filter users table."}
+          Press search button to filter users table.
         </h4>
       </Stack>
     </div>
