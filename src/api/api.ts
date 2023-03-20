@@ -34,7 +34,15 @@ export const getFilteredUsersRequest = (filter: Filter) => {
     return fetchAllUsersRequest();
 
   if ((filter.userType === "all-types" || !filter.userType) && filter.name)
-    return fetch(`${url}?name=${filter.name}`).then((res) => res.json());
+    return fetch(`${url}?name_like=${filter.name}`)
+      .then((res) => res.json())
+      .then((res) =>
+        res.filter(
+          (item: User) =>
+            item.name.slice(0, filter.name?.length).toLowerCase() ===
+            filter.name?.toLowerCase()
+        )
+      );
 
   return fetch(
     !filter.name

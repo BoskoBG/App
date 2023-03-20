@@ -17,13 +17,13 @@ type TableProps = {
   deleteUser: (id: number) => void;
   editUser: (id: number, newUser: User) => void;
   addUser: (user: User) => void;
+  noFilteredUsers: boolean;
 };
 
 const Table = (props: TableProps) => {
   const [deleteDialogActive, setDeleteDialogActive] = useState(false);
   const [modalActive, setModalActive] = useState(false);
   const [modalType, setModalType] = useState<"ADD" | "EDIT">("ADD");
-
   const [selectedItem, setSelectedItem] = useState<User | undefined>(undefined);
   const selection = new Selection({
     onSelectionChanged: () => {
@@ -134,15 +134,19 @@ const Table = (props: TableProps) => {
           />
         )}
       </Stack>
-      <DetailsList
-        items={props.items}
-        columns={columns}
-        setKey="set"
-        layoutMode={DetailsListLayoutMode.justified}
-        selection={selection}
-        selectionMode={1}
-        selectionPreservedOnEmptyClick={false}
-      />
+      {!props.noFilteredUsers ? (
+        <DetailsList
+          items={props.items}
+          columns={columns}
+          setKey="set"
+          layoutMode={DetailsListLayoutMode.justified}
+          selection={selection}
+          selectionMode={1}
+          selectionPreservedOnEmptyClick={false}
+        />
+      ) : (
+        <h4 style={{ textAlign: "center" }}>No users match search criteria.</h4>
+      )}
       {deleteDialogActive && (
         <DeleteDialog
           deleteUser={props.deleteUser}

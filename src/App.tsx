@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
-import { Routes, Route, useNavigate } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import { Stack } from "@fluentui/react/lib/Stack";
 import Header from "./components/Header/Header";
 import Navigation from "./components/Navigation/Navigation";
-import PersonTablePage from "./pages/PersonTablePage";
+import { UsersPage } from "./pages/UsersPage";
 import { User, Filter } from "./types";
 import {
   deleteUserRequest,
@@ -15,12 +15,18 @@ import {
 
 const App = () => {
   const [users, setUsers] = useState<User[]>([]);
-  const navigate = useNavigate();
+  const [noFilteredUsers, setNoFilteredUsers] = useState(false);
+  const [newUserAdded, setNewUserAdded] = useState(false);
 
   const addNewUser = (user: User) => {
     postNewUserRequest(user).then(() => {
-      setUsers([...users, user]);
-      navigate("/");
+      getFilteredUsersRequest({ userType: "all-types", name: "" }).then(
+        (res) => {
+          setNewUserAdded((prev) => !prev);
+          setNoFilteredUsers(false);
+          setUsers(() => res);
+        }
+      );
     });
   };
 
@@ -37,7 +43,10 @@ const App = () => {
   };
 
   const filterUsers = (filter: Filter) => {
-    getFilteredUsersRequest(filter).then((res) => setUsers(res));
+    getFilteredUsersRequest(filter).then((res) => {
+      res.length === 0 ? setNoFilteredUsers(true) : setNoFilteredUsers(false);
+      setUsers(res);
+    });
   };
 
   useEffect(() => {
@@ -64,13 +73,15 @@ const App = () => {
             <Route
               path="/"
               element={
-                <PersonTablePage
+                <UsersPage
                   users={users}
                   onDeleteUser={deleteUser}
                   onEditUser={editUser}
                   onAddNewUser={addNewUser}
                   onFliterUsers={filterUsers}
-                ></PersonTablePage>
+                  noFilteredUsers={noFilteredUsers}
+                  newUserAdded={newUserAdded}
+                ></UsersPage>
               }
             ></Route>
           </Routes>

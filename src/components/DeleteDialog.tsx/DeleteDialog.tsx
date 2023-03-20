@@ -20,7 +20,7 @@ const DeleteDialog = (props: delteDialogProps) => {
     closeButtonAriaLabel: "Close",
     subText: `Are you sure you want to delete user ${props.clickedUser!.name} ${
       props.clickedUser!.surname
-    } `,
+    } ?`,
   };
 
   const onDeleteButtonHandler = () => {

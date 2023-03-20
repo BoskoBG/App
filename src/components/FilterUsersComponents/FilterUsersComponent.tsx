@@ -24,6 +24,7 @@ const stackTokens: IStackTokens = { childrenGap: 20 };
 type FilterUsersComponentsProps = {
   users: User[];
   filterUsers: (filter: Filter) => void;
+  newUserAdded: boolean;
 };
 
 type userTypeTypes = "all-types" | string;
@@ -32,6 +33,7 @@ type selectedOptionType = { id: userTypeTypes; text: userTypeTypes };
 const FilterUsersComponents = ({
   filterUsers,
   users,
+  newUserAdded,
 }: FilterUsersComponentsProps) => {
   const [dropdownOptions, setDropdownOptions] = useState<
     IDropdownOption<selectedOptionType>[]
@@ -40,6 +42,7 @@ const FilterUsersComponents = ({
     IDropdownOption<selectedOptionType>
   >({ key: "all-types", text: "all-types" });
   const [insertedName, setInsertedName] = useState("");
+
   const updateDropdownOptions = () => {
     fetchAllUsersRequest()
       .then((res) => {
@@ -64,6 +67,11 @@ const FilterUsersComponents = ({
       .catch((err) => console.log(err));
   };
 
+  const resetSearchCriteria = () => {
+    setInsertedName("");
+    setselectedOption({ key: "all-types", text: "all-types" });
+  };
+
   const onNameChangeHandler = React.useCallback(
     (
       event: React.FormEvent<HTMLInputElement | HTMLTextAreaElement>,
@@ -82,17 +90,21 @@ const FilterUsersComponents = ({
   };
 
   const onSearchButtonClick = () => {
-    filterUsers({ userType: selectedOption!.text, name: insertedName });
+    filterUsers({ userType: selectedOption.text, name: insertedName });
   };
+
   const onResetButtonClick = () => {
-    setInsertedName("");
+    resetSearchCriteria();
     filterUsers({ userType: "all-types", name: undefined });
-    setselectedOption({ key: "all-types", text: "all-types" });
   };
 
   useEffect(() => {
     updateDropdownOptions();
   }, [users]);
+
+  useEffect(() => {
+    resetSearchCriteria();
+  }, [newUserAdded]);
 
   return (
     <div>

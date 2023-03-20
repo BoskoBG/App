@@ -1,15 +1,6 @@
 {
   "person": [
     {
-      "name": "Jovan",
-      "surname": "Jovanovic",
-      "id": 165978,
-      "createdDate": "16-3-2023",
-      "userType": "user",
-      "city": "Novi Sad",
-      "adress": "Jovana Jovanovica 12"
-    },
-    {
       "name": "Rados",
       "surname": "Radosevic",
       "id": 580153,
@@ -24,7 +15,7 @@
       "id": 843217,
       "createdDate": "16-3-2023",
       "userType": "guest",
-      "city": "Beograd",
+      "city": "Nis",
       "adress": "Djordja Djordjevica 18"
     },
     {
@@ -35,6 +26,24 @@
       "userType": "admin",
       "city": "Kraljevo",
       "adress": "Milosa Milosevica 36"
+    },
+    {
+      "name": "Bosko",
+      "surname": "Golubovic",
+      "id": 110451,
+      "createdDate": "20-3-2023",
+      "userType": "admin",
+      "city": "Beograd",
+      "adress": "Vespucijeva 15"
+    },
+    {
+      "name": "Marko",
+      "surname": "Markovic",
+      "id": 630409,
+      "createdDate": "20-3-2023",
+      "userType": "user",
+      "city": "Novi Sad",
+      "adress": "Marko Markovica 42"
     }
   ]
 }
