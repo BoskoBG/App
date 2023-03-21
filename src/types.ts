@@ -9,6 +9,6 @@ export type User = {
 };
 
 export type Filter = {
-  userType?: string;
+  userType?: "all-types" | string;
   name?: string;
 };

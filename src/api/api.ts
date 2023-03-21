@@ -28,12 +28,10 @@ export const editUserRequest = (id: number, newUser: User) =>
   });
 
 export const getFilteredUsersRequest = (filter: Filter) => {
-  if (!filter.userType && !filter.name) return fetchAllUsersRequest();
-
   if (filter.userType === "all-types" && !filter.name)
     return fetchAllUsersRequest();
 
-  if ((filter.userType === "all-types" || !filter.userType) && filter.name)
+  if (filter.userType === "all-types" && filter.name)
     return fetch(`${url}?name_like=${filter.name}`)
       .then((res) => res.json())
       .then((res) =>
@@ -44,9 +42,18 @@ export const getFilteredUsersRequest = (filter: Filter) => {
         )
       );
 
-  return fetch(
-    !filter.name
-      ? `${url}?userType=${filter.userType}`
-      : `${url}?userType=${filter.userType}&name=${filter.name}`
-  ).then((res) => res.json());
+  if (filter.userType !== "all-types" && !filter.name)
+    return fetch(`${url}?userType=${filter.userType}`).then((res) =>
+      res.json()
+    );
+
+  return fetch(`${url}?userType=${filter.userType}&name_like=${filter.name}`)
+    .then((res) => res.json())
+    .then((res) =>
+      res.filter(
+        (item: User) =>
+          item.name.slice(0, filter.name?.length).toLowerCase() ===
+          filter.name?.toLowerCase()
+      )
+    );
 };
